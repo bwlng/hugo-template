@@ -1,11 +1,13 @@
-<figure >
-    {{ $url := (printf "https://micro.blog/photos/1200x/%s" (.Destination | safeURL)) }}
-    {{ $url }}
-    {{ with resources.GetRemote $url }}
+{{ $desktopImage := (printf "https://micro.blog/photos/1200x/%s" (.Destination | safeURL)) }}
+
+{{ with resources.GetRemote $desktopImage }}
     {{ with .Err }}
-      {{ warnf "%s" . }}
+        {{ warnf "%s" . }}
     {{ else }}
-      <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="">
+        <figure >
+            <picture>
+                <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="">
+            </picture>
+        </figure>
     {{ end }}
-  {{ end }}
-</figure>
+{{ end }}
