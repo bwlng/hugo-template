@@ -1,0 +1,11 @@
+<figure >
+    {{ $url := (printf "https://micro.blog/photos/1200x/%s" (.Destination | safeURL)) }}
+    {{ $url }}
+    {{ with resources.GetRemote $url }}
+    {{ with .Err }}
+      {{ warnf "%s" . }}
+    {{ else }}
+      <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="">
+    {{ end }}
+  {{ end }}
+</figure>
