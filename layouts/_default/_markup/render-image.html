@@ -1,13 +1,14 @@
 {{ $desktopImage := (printf "https://micro.blog/photos/1200x/%s" (.Destination | safeURL)) }}
-
 {{ with resources.GetRemote $desktopImage }}
     {{ with .Err }}
         {{ warnf "%s" . }}
     {{ else }}
-        <figure >
-            <picture>
-                <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="">
-            </picture>
-        </figure>
+       {{/*
+            This tag remains wrapped in a <p> tag, so this can’t be wrapped in <figure>
+            because block-level components are not allowed in <p> tags
+        */}}
+    <picture>
+        <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="">
+    </picture>
     {{ end }}
 {{ end }}
