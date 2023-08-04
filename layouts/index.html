@@ -1,25 +1,59 @@
 {{ define "main" }}
 {{ $list := (where .Site.Pages "Type" "post") }}
 {{ .Page.Scratch.Set "template" "listing" }}
-<div>
-    <div class="container px-4 mx-auto">
-        <div class="space-y-[60px]">
-        {{ range $list }}
-            <div class="h-entry bg-repeat-x last:bg-none last:[padding-bottom:0px] [background-position:0_calc(100%)] [padding-bottom:71px] [background-size:100px_11px] [background-image:url(/img/divider.svg)]">
-                {{ if .Title }}
-                <h2 class="font-extrabold text-2xl">
-                    <a class="p-name u-url text-purple-500 hover:text-purple-600" href="{{ .Permalink }}">
-                        {{ .Title }}
-                    </a>
-                </h2>
-                {{ end }}
-                <div class="p-summary space-y-4">{{ .Content }}</div>
-                <p class="dt-published text-sm text-gray-500 mt-4" datetime="{{ .Date.Format "2006-01-02T15:04:05-0700" }}">
-                    {{ .Date.Format "1/2/2006 3:04pm" }}
-                </p>
+<main class="flex-grow">
+    <div class="py-12 sm:py-20">
+        <div class="container mx-auto px-4 max-w-prose">
+            <div class="mb-12">
+                <div class="relative overflow-hidden">
+                    <div
+                        class="pointer-events-none absolute right-0 top-0 z-10 h-full w-5"
+                        style="background-image: linear-gradient(90deg,rgba(255,255,255,0) 0%,var(--color-background-elevated,#FFFFFF) 100%);">
+                    </div>
+                    <div
+                        class="relative flex w-full snap-x snap-mandatory gap-2.5 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                            <a aria-current="page" class="min-w-[72px] justify-center inline-flex rounded-lg border px-3 py-2.5 leading-tight transition-colors duration-150 border-transparent bg-black text-white" disabled="" href="/">All</a>
+                            <a class="min-w-[72px] justify-center inline-flex rounded-lg border px-3 py-2.5 leading-tight transition-colors duration-150 border border-gray-300 bg-white text-black hover:bg-gray-100" disabled="" href="/articles">Articles</a>
+                            <a class="min-w-[72px] justify-center inline-flex rounded-lg border px-3 py-2.5 leading-tight transition-colors duration-150 border border-gray-300 bg-white text-black hover:bg-gray-100" disabled="" href="/photos">Photos</a>
+                            <a class="min-w-[72px] justify-center inline-flex rounded-lg border px-3 py-2.5 leading-tight transition-colors duration-150 border border-gray-300 bg-white text-black hover:bg-gray-100" disabled="" href="/notes">Notes</a>
+                    </div>
+                </div>
             </div>
-        {{ end }}
+            <div class="space-y-12">
+            {{ range $index, $ := $list }}
+                {{ if ne $index 0 }}
+                <hr
+                    class="border-none [height:11px] [background-position:0_calc(100%)] [background-size:100px_11px]"
+                    style="background-image: url(&quot;data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 11'%3E%3Cpath fill='%23cccccc' d='M72.27,5.6C63.72,8.79,58.44,10,50,10,39.44,10,34.11,8.72,24.63,4.93,15.36,1.22,10.27,0,0,0V1C10.27,1,15.36,2.22,24.63,5.93,34.11,9.72,39.44,11,50,11c8.44,0,13.72-1.21,22.27-4.4L74,5.94C83.64,2.35,89.65,1,100,1V0C89.65,0,83.64,1.35,74,4.94Z' /%3E%3C/svg%3E&quot;);"
+                />
+                {{ end }}
+                <div class="h-entry">
+                    {{ if .Title }}
+                    <h2 class="font-extrabold text-2xl">
+                        <a class="p-name u-url text-purple-500 hover:text-purple-600" href="{{ .Permalink }}">
+                            {{ .Title }}
+                        </a>
+                    </h2>
+                    {{ end }}
+                    <div class="p-summary prose">{{ .Content }}</div>
+                    <ul class="flex text-sm text-gray-400 undefined">
+                        <li
+                            class="dt-published bg-no-repeat [padding-right:10px] [background-position:calc(100%-3px),50%]"
+                            style="background-image:url('data:image/svg+xml,<svg width=\'3\' height=\'4\' viewBox=\'0 0 3 4\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M1.5 0.5C0.671371 0.5 0 1.17137 0 2C0 2.82863 0.671371 3.5 1.5 3.5C2.32863 3.5 3 2.82863 3 2C3 1.17137 2.32863 0.5 1.5 0.5Z\' fill=\'%23D1D5DB\'/></svg>')"
+                            datetime="{{ .Date.Format `2006-01-02T15:04:05-0700` }}"
+                        >
+                            {{ .Date.Format "1/2/2006, 3:04pm" }}
+                        </li>
+                        <li class="">
+                            <a href="{{ .Permalink }}" class="text-gray-400 hover:text-purple-500 transition-colors duration-150  hover:underline">
+                                Go to Post
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            {{ end }}
+            </div>
         </div>
     </div>
-</div>
+</main>
 {{ end }}
