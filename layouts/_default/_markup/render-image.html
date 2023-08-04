@@ -8,7 +8,7 @@
             because block-level components are not allowed in <p> tags
         */}}
     <picture>
-        <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="">
+        <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="" class="w-full max-w-full h-auto">
     </picture>
     {{ end }}
 {{ end }}
