@@ -1,2 +1,4 @@
 <link rel="stylesheet" href="https://cloud.typography.com/655458/7656792/css/fonts.css">
-<link href="{{ "css/styles.css" | relURL }}?{{ .Site.Params.theme_seconds }}" rel="stylesheet">
+{{ with resources.Get "css/styles.css" | postCSS }}
+  <link rel="stylesheet" href="{{ .RelPermalink }}">
+{{ end }}
