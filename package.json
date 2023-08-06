@@ -4,10 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "build": "NODE_ENV=production postcss ./src/css/styles.css -o ./static/css/styles.css",
     "dev": "postcss ./src/css/styles.css -o ./static/css/styles.css --poll --watch"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
+    "cssnano": "^6.0.1",
     "postcss": "^8.4.27",
     "postcss-cli": "^10.1.0",
     "postcss-nesting": "^12.0.1",
