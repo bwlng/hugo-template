@@ -2,3 +2,4 @@
 content/*
 !content/.gitkeep
 node_modules
+resources
