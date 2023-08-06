@@ -1,17 +1,28 @@
 {
-    "title": "[TITLE]",
-    "author": {
-    	"name": "[FULL_NAME]",
-    	"avatar": "https://micro.blog/[USERNAME]/avatar.jpg",
-    	"username": "[USERNAME]"
-    },
-    "baseURL": "[SCHEME]://[HOSTNAME]/",
+	"title": "[TITLE]",
+	"author": {
+		"name": "[FULL_NAME]",
+		"avatar": "https://micro.blog/[USERNAME]/avatar.jpg",
+		"username": "[USERNAME]"
+	},
+	"baseURL": "http://localhost:1313/",
 	"mediaTypes": {
 		"application/json": {
 			"suffixes": [ "json" ]
+		},
+		"text/debug": {
+			"suffixes": [
+				"debug.html"
+			]
 		}
 	},
 	"outputFormats": {
+		"DEBUG": {
+			"name": "DEBUG",
+			"mediaType": "text/debug",
+			"path": "debug",
+			"isHTML": true
+		},
 		"RSS": {
 			"baseName": "feed"
 		},
@@ -53,7 +64,10 @@
 	},
 	"outputs": {
 		"home": [ "HTML", "RSS", "JSON", "RSD", "ArchiveJSON", "PhotosJSON", "PodcastXML", "PodcastJSON" ],
-		"page": [ "HTML" ],
+		"page": [
+			"HTML",
+			"DEBUG"
+		],
 		"section": [ "HTML" ],
 		"taxonomy": [ "HTML", "RSS", "JSON" ],
 		"taxonomyTerm": [ "HTML", "RSS", "JSON" ]
