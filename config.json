@@ -5,10 +5,12 @@
 		"avatar": "https://micro.blog/[USERNAME]/avatar.jpg",
 		"username": "[USERNAME]"
 	},
-	"baseURL": "https://bowling.micro.blog/",
+	"baseURL": "[SCHEME]://[HOSTNAME]/",
 	"mediaTypes": {
 		"application/json": {
-			"suffixes": [ "json" ]
+			"suffixes": [
+				"json"
+			]
 		},
 		"text/debug": {
 			"suffixes": [
@@ -63,18 +65,37 @@
 		}
 	},
 	"outputs": {
-		"home": [ "HTML", "RSS", "JSON", "RSD", "ArchiveJSON", "PhotosJSON", "PodcastXML", "PodcastJSON" ],
+		"home": [
+			"HTML",
+			"RSS",
+			"JSON",
+			"RSD",
+			"ArchiveJSON",
+			"PhotosJSON",
+			"PodcastXML",
+			"PodcastJSON"
+		],
 		"page": [
 			"HTML",
 			"DEBUG"
 		],
-		"section": [ "HTML" ],
-		"taxonomy": [ "HTML", "RSS", "JSON" ],
-		"taxonomyTerm": [ "HTML", "RSS", "JSON" ]
+		"section": [
+			"HTML"
+		],
+		"taxonomy": [
+			"HTML",
+			"RSS",
+			"JSON"
+		],
+		"taxonomyTerm": [
+			"HTML",
+			"RSS",
+			"JSON"
+		]
 	},
 	"taxonomies": {
 		"category": "categories"
-	},	
+	},
 	"rssLimit": 25,
 	"uglyURLs": false,
 	"blackfriday": {
@@ -83,7 +104,7 @@
 	"markup": {
 		"goldmark": {
 			"renderer": {
-			  "unsafe": true
+				"unsafe": true
 			}
 		}
 	},
