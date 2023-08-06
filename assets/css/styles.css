@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+::selection {
+    color: #fff;
+    background-color: theme('colors.purple.400');
+}
+.prose {
+  line-height: theme('lineHeight.normal');
+  > * + * {
+    margin-top: theme('spacing.4');
+  }
+  > h1,
+  > h2,
+  > h3,
+  > h4,
+  > h5,
+  > h6 {
+    font-weight: 700;
+  }
+  > h1 small,
+  > h2 small,
+  > h3 small,
+  > h4 small,
+  > h5 small,
+  > h6 small {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 0.666em;
+  }
+  > h1 {
+    font-size: theme('fontSize.3xl');
+    line-height: theme('lineHeight.tight');
+  }
+  > * + h1 {
+    margin-top: theme('spacing.8');
+  }
+  > h2 {
+    font-size: theme('fontSize.3xl');
+    line-height: theme('lineHeight.tight');
+  }
+  > * + h2 {
+    margin-top: theme('spacing.10');
+  }
+  > h3 {
+    font-size: theme('fontSize.2xl');
+    line-height: theme('lineHeight.tight');
+  }
+  > * + h3 {
+    margin-top: theme('spacing.6');
+  }
+  > h4 {
+    font-size: theme('fontSize.xl');
+    line-height: theme('lineHeight.tight');
+  }
+  > ol,
+  > ul,
+  > ul ul,
+  > ol ol,
+  > ol ul,
+  > ul ol,
+  > .footnotes ol {
+    list-style-position: outside;
+    margin-left: theme('spacing.6');
+  }
+  > ol,
+  > ol ol,
+  > ul ol,
+  > .footnotes ol  {
+    list-style: decimal;
+  }
+  > ul,
+  > ul ul,
+  > ol ul {
+    list-style: disc;
+  }
+  > ol li::marker,
+  > ul li::marker,
+  > .footnotes ol li::marker {
+    color: theme('colors.purple.500');
+  }
+  > ul,
+  > ol,
+  > .footnotes ol {
+    li {
+      * + * {
+        margin-top: theme('spacing[1.5]');
+      }
+    }
+    > * + * {
+      margin-top: theme('spacing.2');
+    }
+  }
+  > dt {
+    font-weight: 700;
+  }
+  > dd {
+    margin-left: 0;
+  }
+  > hr,
+  > .footnotes hr {
+    margin-top: theme('spacing.12');
+    margin-bottom: theme('spacing.12');
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible;
+    text-align: inherit;
+    border: 0;
+    border-top: 1px solid theme('colors.gray.200');
+  }
+  > .footnotes hr {
+    margin-top: theme('spacing.4');
+    margin-bottom: theme('spacing.4');
+  }
+  > .footnotes .footnote-backref {
+    color: theme('colors.gray.500');
+  }
+  > address,
+  > blockquote {
+    font-style: normal;
+  }
+  > blockquote {
+    color: rgba(0, 0, 0, 0.5);
+    border-left: 2px solid theme('colors.gray.200');
+    padding-left: theme('spacing.4');
+  }
+  > blockquote * + * {
+    margin-top: theme('spacing.4')
+  }
+  > blockquote footer {
+    margin-top: 10px;
+    font-size: 0.875rem;
+  }
+  > pre {
+    font-size: theme('fontSize.sm');
+    font-family: theme('fontFamily.mono');
+    line-height: theme('lineHeight.normal');
+    color: theme('colors.gray.100');
+    padding: theme('spacing.4');
+    tab-size: 4;
+    overflow: auto;
+    border-radius: theme('borderRadius.DEFAULT');
+    background-color: theme('colors.gray.800');
+  }
+  > * code:not(pre code) {
+    font-size: 0.875em;
+    background-color: theme('colors.gray.200');
+    padding: .125em;
+    border-radius: theme('borderRadius.DEFAULT');
+  }
+  > figure {
+    figcaption {
+      color: theme('colors.gray.500')
+    }
+    * + figcaption {
+      margin-top: theme('spacing.2');
+    }
+  }
+  > table {
+    font-size: theme('fontSize.sm');
+    width: 100%;
+    table-layout: auto;
+    text-align: left;
+    thead {
+      border-bottom-width: 1px;
+      border-bottom-color: theme('colors.gray.200');
+    }
+    thead th {
+      padding-right: theme('spacing.2');
+      padding-bottom: theme('spacing.2');
+      padding-left: theme('spacing.2');
+      font-weight: 600;
+      vertical-align: bottom;
+    }
+    thead th:first-child {
+      padding-left: 0;
+    }
+    thead th:last-child {
+      padding-right: 0;
+    }
+    tbody td,
+    tfoot td {
+      padding-top: theme('spacing.2');
+      padding-right: theme('spacing.2');
+      padding-bottom: theme('spacing.2');
+      padding-left: theme('spacing.2');
+    }
+    tbody td:first-child,
+    tfoot td:first-child {
+      padding-left: 0;
+    }
+    tbody td:last-child,
+    tfoot td:last-child {
+      padding-right: 0;
+    }
+    tbody td {
+      vertical-align: baseline;
+    }
+    tbody tr {
+      border-bottom-width: 1px;
+      border-bottom-color: theme('colors.gray.200');
+    }
+    tbody tr:last-child {
+      border-bottom-width: 0;
+    }
+    tfoot {
+      border-top-width: 1px;
+      border-top-color: theme('colors.gray.200');
+    }
+    tfoot td {
+      vertical-align: top;
+    }
+  }
+  a:not([class]) {
+    color: theme('colors.purple.400');
+    text-decoration: underline;
+    transition-property: theme('transitionProperty.colors');
+    transition-duration: theme('transitionDuration.150');
+    transition-timing-function: theme('transitionTimingFunction.DEFAULT');
+    &:hover {
+      color: theme('colors.purple.500');
+      background-color: theme('colors.purple.100');
+    }
+  }
+  > .footnotes {
+    font-size: theme('fontSize.sm');
+  }
+}
