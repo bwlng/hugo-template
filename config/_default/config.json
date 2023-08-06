@@ -5,7 +5,7 @@
 		"avatar": "https://micro.blog/[USERNAME]/avatar.jpg",
 		"username": "[USERNAME]"
 	},
-	"baseURL": "[SCHEME]://[HOSTNAME]/",
+	"baseURL": "https://bowling.micro.blog/",
 	"mediaTypes": {
 		"application/json": {
 			"suffixes": [ "json" ]
