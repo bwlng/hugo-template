@@ -1,0 +1,15 @@
+{{ define "main" }}
+    {{ $list := where .Site.Pages "Type" "post" }}
+    {{ $photos_list := $list | intersect (where .Site.Pages ".Params.photos" "!=" nil) }}
+    {{ if eq .Section "articles" }}
+        {{ $list = $list | intersect (where .Site.Pages ".Params.title" "not in" (slice "" " " nil)) }}
+    {{end }}
+    {{ if eq .Section "photos" }}
+        {{ $list = $photos_list }}
+    {{end }}
+    {{ if eq .Section "notes" }}
+        {{ $list = $list | intersect (where .Site.Pages "Params.photos" "==" nil) | intersect (where .Site.Pages ".Params.title" "in" (slice "" " " nil)) }}
+    {{end }}
+
+    {{ partial "post-type-listing" (dict "context" . "list" $list) }}
+{{ end }}
