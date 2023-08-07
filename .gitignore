@@ -1,5 +1,8 @@
 .DS_Store
 content/*
 !content/.gitkeep
+!content/articles
+!content/photos
+!content/notes
 node_modules
 resources
