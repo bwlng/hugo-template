@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
-    {{ partial "head.html" . }}
-    <body>
-        {{ partial "header.html" . }}
+    {{ partial "head" . }}
+    <body class="flex flex-col min-h-screen">
+        {{ partial "header" . }}
+        <main class="flex-grow">
         {{ block "main" . }}{{ end }}
-        {{ partial "footer.html" . }}
-		{{ partial "custom_footer.html" . }}
+        </main>
+        {{ partial "footer" . }}
+		{{ partial "custom-footer" . }}
     </body>
 </html>
