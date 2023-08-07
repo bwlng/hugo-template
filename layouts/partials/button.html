@@ -8,7 +8,6 @@
         {{- $rest = $rest | merge (dict $key $value) -}}
     {{- end -}}
 {{- end -}}
-{{- $rest | jsonify -}}
 {{- if eq $variant "primary" -}}
     {{- with $selected -}}
         {{- $class = $class | append "text-white border-purple-200 bg-purple-900 text-purple-200" -}}
