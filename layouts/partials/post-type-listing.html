@@ -1,0 +1,49 @@
+{{ $context := .context }}
+{{ $list := default (where $context.Site.Pages "Type" "post") .list }}
+{{ $links := slice
+    (dict
+        "name" "All"
+        "href" "/"
+    )
+    (dict
+        "name" "Articles"
+        "href" "/articles"
+    )
+    (dict
+        "name" "Photos"
+        "href" "/photos"
+    )
+    (dict
+        "name" "Notes"
+        "href" "/notes"
+    )
+}}
+<div class="py-12 sm:py-20">
+    <div class="container mx-auto px-4 max-w-prose">
+        <div class="mb-12">
+            <div class="relative overflow-hidden">
+                <div
+                    class="pointer-events-none absolute right-0 top-0 z-10 h-full w-5"
+                    style="background-image: linear-gradient(90deg,rgba(255,255,255,0) 0%,var(--color-background-elevated,#FFFFFF) 100%);">
+                </div>
+                <div
+                    class="relative flex w-full snap-x snap-mandatory gap-2.5 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                    {{ range $index, $link := $links }}
+                        {{ partial "button" (dict
+                            "children" $link.name
+                            "href" $link.href
+                            "variant" "secondary"
+                            "selected" (or 
+                                (and (eq $context.Section "") (eq $link.href "/"))
+                                (eq $context.Section (strings.TrimPrefix "/" $link.href))
+                            )
+                        )}}
+                    {{ end}}
+                </div>
+            </div>
+        </div>
+        <div class="space-y-12">
+            {{ partial "post-list" (dict "context" $context "list" $list) }}
+        </div>
+    </div>
+</div>

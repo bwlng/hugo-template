@@ -1,0 +1,28 @@
+{{ $context := .context }}
+{{ $item := .item }}
+<div class="h-entry">
+    {{ if $item.Title }}
+    <h2 class="font-extrabold text-2xl">
+        <a class="p-name u-url text-purple-500 hover:text-purple-600" href="{{ $item.Permalink }}">
+            {{ $item.Title }}
+        </a>
+    </h2>
+    {{ end }}
+    <div class="p-summary prose">{{ $item.Content }}</div>
+    <div class="mt-4">
+        <ul class="flex text-sm text-gray-400 undefined">
+            <li
+                class="dt-published bg-no-repeat [padding-right:10px] [background-position:calc(100%-3px),50%]"
+                style="background-image:url('data:image/svg+xml,<svg width=\'3\' height=\'4\' viewBox=\'0 0 3 4\' fill=\'none\' xmlns=\'http://www$item.w3$item.org/2000/svg\'><path d=\'M1$item.5 0$item.5C0$item.671371 0$item.5 0 1$item.17137 0 2C0 2$item.82863 0$item.671371 3$item.5 1$item.5 3$item.5C2$item.32863 3$item.5 3 2$item.82863 3 2C3 1$item.17137 2$item.32863 0$item.5 1$item.5 0$item.5Z\' fill=\'%23D1D5DB\'/></svg>')"
+                datetime="{{ $item.Date.Format `2006-01-02T15:04:05-0700` }}"
+            >
+                {{ $item.Date.Format "1/2/2006, 3:04pm" }}
+            </li>
+            <li class="">
+                <a href="{{ $item.Permalink }}" class="text-gray-400 hover:text-purple-500 transition-colors duration-150  hover:underline">
+                    Go to Post
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
