@@ -1,6 +1,16 @@
 {{ define "main" }}
 <article class="h-entry post py-12 sm:py-20">
   <div class="container mx-auto max-w-prose px-4">
+    {{ with .OutputFormats }}
+      <pre>
+        {{- "# Permalinks" -}}<br />
+        {{- range . -}}
+           {{- .Permalink -}}<br />
+        {{- end  -}}
+        {{- "# OutputFormats" -}}<br />
+        {{- . | jsonify (dict "prefix" " " "indent" "  ") -}}
+      </pre>
+    {{ end}}
     <header>
     {{ with .Title }}
       <h1 class="p-name">{{ . }}</h1>
