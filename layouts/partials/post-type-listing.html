@@ -19,7 +19,7 @@
     )
 }}
 <div class="py-12 sm:py-20">
-    <div class="container mx-auto px-4 max-w-prose">
+    <div class="container mx-auto px-4 max-w-screen-sm">
         <div class="mb-12">
             <div class="relative overflow-hidden">
                 <div
@@ -30,7 +30,7 @@
                     class="relative flex w-full snap-x snap-mandatory gap-2.5 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                     {{ range $index, $link := $links }}
                         {{ partial "button" (dict
-                            "children" $link.name
+                            "text" $link.name
                             "href" $link.href
                             "variant" "secondary"
                             "selected" (or 
