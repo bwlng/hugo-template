@@ -8,7 +8,7 @@
         </a>
     </h2>
     {{ end }}
-    <div class="p-summary prose">{{ $item.Content }}</div>
+    <div class="p-summary prose">{{ partial "content-with-optimized-images" $item.Content }}</div>
     <div class="mt-4">
         {{ partial "meta-list" (dict "date" $item.Date "permalink" $item.Permalink) }}
     </div>
