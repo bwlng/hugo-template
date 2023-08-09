@@ -1,4 +1,5 @@
 {{ $desktopImage := (printf "https://micro.blog/photos/1200x/%s" (.Destination | safeURL)) }}
+Render hook
 {{ with resources.GetRemote $desktopImage }}
     {{ with .Err }}
         {{ warnf "%s" . }}
