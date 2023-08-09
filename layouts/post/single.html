@@ -1,11 +1,20 @@
 {{ define "main" }}
+{{ $content := .Content }}
+{{/* Finds each img tag, sets the `src`, `width`, `height`, `alt` to variables, then replaces the img tag in the content with an optimized tag */}}
+{{ range $match := findRE `<img.+?>` $content }}
+  {{ $src := replaceRE `src=|"` "" (index (findRE `src=\"([^\"]+)\"` $match 1) 0)  }}
+  {{ $width := replaceRE `width=|"` "" (index (findRE `width=\"([^\"]+)\"` $match 1) 0)  }}
+  {{ $height := replaceRE `height=|"` "" (index (findRE `height=\"([^\"]+)\"` $match 1) 0)  }}
+  {{ $alt := replaceRE `alt=|"` "" (index (findRE `alt=\"([^\"]+)\"` $match 1) 0)  }}
+  {{ $content = (replaceRE $match (printf `<img sizes="(min-width: 640) 640, 100vw" decoding="async" loading="lazy" src="%s" srcset="%s" width="%s" height="%s" alt="%s" class="w-full h-auto max-w-full rounded shadow" />` $src $src $width $height $alt) $content) | safeHTML }}
+{{ end }}
 <article class="h-entry post py-12 sm:py-20 ">
   <div class="container mx-auto max-w-screen-sm px-4">
     {{ with .Title }}
       <h1 class="p-name text-3xl font-bold lg:text-4xl">{{ . }}</h1>
     {{ end }}
     <section class="e-content prose {{- with .Title }} mt-4{{- end -}}">
-      {{ .Content }}
+      {{ $content }}
     </section>
     <div class="mt-4">
       {{ partial "meta-list" (dict "date" .Date) }}
