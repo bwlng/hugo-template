@@ -1,111 +1,26 @@
 {{ define "main" }}
-<article class="h-entry post py-12 sm:py-20">
-  <div class="container mx-auto max-w-prose px-4">
-    <header>
+<article class="h-entry post py-12 sm:py-20 ">
+  <div class="container mx-auto max-w-screen-sm px-4">
     {{ with .Title }}
-      <h1 class="p-name">{{ . }}</h1>
-      {{ end }}
-      <h2 class="headline">
-        <time class="dt-published" datetime="{{ .Date.Format "2006-01-02 15:04:05 -0700" }}">
-          <a class="u-url dates" href="{{ .Permalink }}">{{ .Date.Format "Jan 2, 2006" }}</a>
-        </time>
-      </h2>
-    </header>
-    <section class="e-content post-body prose">
-    {{ $html := .Content }}
-    {{ $re := `(?s)(<p[^>]*>(.*?)</p>)` }}
-    {{ $matches := findRE $re $html }}
-    {{/*  {{ printf "%v" $matches }}
-    {{ printf "The length of the matches slice is %d" (len $matches) }}  */}}
-    {{ $images := slice }}
-    {{ range $matches }}
-    {{ $re := `(?s)<p[^>]*>(.*?<picture[^>]*>.*?)</p>` }}
-    {{ $pictureMatches := findRE $re . }}
-    {{ if len $pictureMatches }}
-        {{ $images = $images | append . }}
-    {{ else }}
-        {{ if len $images }}
-          <div class="relative overflow-hidden rounded undefined">
-            <button
-              class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-400 z-1 absolute left-0 top-1/2 z-10 ml-4 -translate-y-1/2"
-              data-direction="previous"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="h-6 w-6">
-                <path
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                  d="M38.4256 48.4227H38.4256C37.6432 49.2043 36.3756 49.2043 35.5932 48.4227L20.5707 33.4183V33.4183C19.7895 32.6387 19.7882 31.3734 20.5678 30.5921C20.5687 30.5911 20.5697 30.5902 20.5707 30.5892L35.5932 15.5848V15.5848C36.3744 14.8026 37.6418 14.8019 38.4239 15.5831C39.206 16.3643 39.2068 17.6316 38.4256 18.4138V18.4138L24.8192 32.0038L38.4256 45.5938V45.5938C39.2068 46.3732 39.2082 47.6383 38.4288 48.4195C38.4277 48.4206 38.4267 48.4216 38.4256 48.4227V48.4227Z"
-                ></path>
-              </svg>
-            </button>
-            <button
-              class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-400 z-1 absolute right-0 top-1/2 z-10 mr-4 -translate-y-1/2"
-              data-direction="next"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="h-6 w-6">
-                <path
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                  d="M28.4276 48.4568C27.6464 49.239 26.3791 49.2398 25.5969 48.4585C24.8148 47.6773 24.814 46.41 25.5952 45.6278L39.2016 32.0378L25.5952 18.4478C24.814 17.6657 24.8148 16.3984 25.5969 15.6171C26.379 14.8359 27.6464 14.8367 28.4276 15.6188L43.45 30.6233C44.2312 31.403 44.2326 32.6683 43.4529 33.4495C43.452 33.4505 43.451 33.4515 43.45 33.4524L28.4276 48.4568Z"
-                ></path>
-              </svg>
-            </button>
-            <div
-              class="relative flex w-full snap-x snap-mandatory overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-            >
-              {{ range $images }}
-              <div
-                data-item="true"
-                data-item-index="2"
-                class="w-full shrink-0 snap-center"
-              >
-                {{ . | safeHTML }}
-              </div>
-              {{ end }}
-            </div>
-          </div>
-          <div class="mt-4 flex flex-wrap justify-center gap-2">
-            {{ range $images }}
-            <button
-              data-item-index="0"
-              class="400 h-4 w-4 rounded-full focus:outline-none focus-visible:ring-2 bg-purple-400 focus-visible:ring-purple-200"
-            ></button>
-            {{ end }}
-          </div>
-        {{ end }}
-        {{ . | safeHTML }}
-        {{ $images = slice }}
+      <h1 class="p-name text-3xl font-bold lg:text-4xl">{{ . }}</h1>
     {{ end }}
-{{ end }}
-{{ if len $images }}
-  <div class="flex bg-red-500 gap-12">
-    {{ range $images }}
-      {{ . | safeHTML }}
+    <section class="e-content prose {{- with .Title }} mt-4{{- end -}}">
+      {{ .Content }}
+    </section>
+    <div class="mt-4">
+      {{ partial "meta-list" (dict "date" .Date) }}
+    </div>
+    {{ partial "divider" (dict "class" "my-12") }}
+    {{ partial "button" (dict
+      "text" "All Posts"
+      "icon_before" "chevron-left"
+      "variant" "muted"
+      "href" "/"
+    ) }}
+
+    {{ if .Site.Params.include_conversation }}
+    <script type="text/javascript" src="https://micro.blog/conversation.js?url={{ .Permalink }}"></script>
     {{ end }}
-  {{ end }}
-  </section>
-
-  {{ if .Site.Params.include_conversation }}
-  <script type="text/javascript" src="https://micro.blog/conversation.js?url={{ .Permalink }}"></script>
-  {{ end }}
-
-  <section id="post-meta" class="clearfix p-author h-card">
-    <a href="/" class="u-url">
-  	{{ if .Params.author }}
-		<img class="u-photo avatar" src="{{ .Params.author.avatar }}" width="96" height="96">
-		<div>
-		  <span class="p-name dark">{{ .Params.author.name }}</span>
-		  <span><a href="https://micro.blog/{{ .Params.author.username }}">@{{ .Params.author.username }}</a></span>
-		</div>
-  	{{ else }}
-		<img class="u-photo avatar" src="{{ .Site.Author.avatar }}" width="96" height="96">
-		<div>
-		  <span class="p-name dark">{{ .Site.Author.name }}</span>
-		  <span><a href="https://micro.blog/{{ .Site.Author.username }}">@{{ .Site.Author.username }}</a></span>
-		</div>
-	{{ end }}
-    </a>
-  </section>
-  <div class="container mx-auto max-w-prose px-4"></div>
+  </div>
 </article>
 {{ end }}
