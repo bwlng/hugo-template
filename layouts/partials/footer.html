@@ -7,15 +7,15 @@
   <div
     class="container max-w-screen-sm px-4 mx-auto pb-6 text-center text-gray-500"
   >
-    <div>© 2023 Stephen Bowling</div>
+    <div>© {{ now.Format "2006" }} Stephen Bowling</div>
     <div>
       <a
-        href="/feeds/all.xml"
+        href="/feed.xml"
         class="text-purple-400 hover:text-purple-500 transition-colors duration-150 hover:underline"
         >RSS</a
       >,
       <a
-        href="/feeds/all.json"
+        href="/feed.json"
         class="text-purple-400 hover:text-purple-500 transition-colors duration-150 hover:underline"
         >JSON</a
       >
