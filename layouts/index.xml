@@ -17,9 +17,7 @@
       {{- if .Params.guid }}
       <guid>{{ .Params.guid }}</guid>
       {{- else -}}
-      <guid>{{ .Permalink }}</guid>
-      {{- end }}
-      <description>{{ .Content | html }}</description>
+      <guid>{{ .Permalink }}</guid> {{- end }} <description>{{ (partial "content-with-optimized-images" .Content) | html }}</description>
     </item>
     {{ end }}
   </channel>
