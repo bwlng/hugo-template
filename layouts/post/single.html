@@ -1,5 +1,6 @@
 {{ define "main" }}
-{{ $content := partial "content-with-optimized-images" .Content }}
+{{ $content := partial "get-content-without-summary" . }}
+{{ $content = partial "content-with-optimized-images" $content }}
 <article class="h-entry post py-12 sm:py-20 ">
   <div class="container mx-auto max-w-screen-sm px-4">
     {{ with .Title }}

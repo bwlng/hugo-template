@@ -1,0 +1,10 @@
+{{/*
+    Accepts the current page context and returns the content summary if it exists, otherwise it returns the content. Summary is defined by the <!--more--> tag.
+
+    Usage: {{ partial "get-content-summary" . }}
+*/}}
+{{ $summary := .Content }}
+{{ if partial "has-summary" . }}
+    {{ $summary = .Summary }}
+{{ end }}
+{{ return $summary }}

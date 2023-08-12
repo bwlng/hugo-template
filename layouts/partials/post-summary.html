@@ -1,5 +1,6 @@
 {{ $context := .context }}
 {{ $item := .item }}
+{{ $content := partial "get-content-summary" .item }}
 <div class="h-entry">
     {{ if $item.Title }}
     <h2 class="font-extrabold text-2xl">
@@ -8,7 +9,7 @@
         </a>
     </h2>
     {{ end }}
-    <div class="p-summary prose">{{ partial "content-with-optimized-images" $item.Content }}</div>
+    <div class="p-summary prose {{- with $item.Title }} mt-4{{ end -}}">{{ partial "content-with-optimized-images" $content }}</div>
     <div class="mt-4">
         {{ partial "meta-list" (dict "date" $item.Date "permalink" $item.Permalink) }}
     </div>

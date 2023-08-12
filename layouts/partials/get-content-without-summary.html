@@ -1,0 +1,10 @@
+{{/*
+    Accepts the current page context and returns the content without the summary if it exists. Summary is defined by the <!--more--> tag.
+
+    Usage: {{ partial "get-content-without-summary" . }}
+*/}}
+{{ $content := .Content }}
+{{ if partial "has-summary" . }}
+    {{ $content = (index (split .RawContent "<!--more-->") 1) | markdownify }}
+{{ end }}
+{{ return $content }}
