@@ -1,15 +1,18 @@
 {{ define "main" }}
     {{ $list := where .Site.Pages "Type" "post" }}
-    {{ $photos_list := $list | intersect (where .Site.Pages ".Params.photos" "!=" nil) }}
+    {{ $photos := $list | intersect (where .Site.Pages ".Params.photos" "!=" nil) }}
+    {{ $articles := $list | intersect (where .Site.Pages ".RawContent" "like" "<!--more-->") }}
     {{ if eq .Section "articles" }}
-        {{ $list = $list | intersect (where .Site.Pages ".Params.title" "not in" (slice "" " " nil)) }}
+        {{/* Articles are posts with <!--more--> */}}
+        {{ $list = $articles }}
     {{end }}
     {{ if eq .Section "photos" }}
-        {{ $list = $photos_list }}
+        {{/* Photos are posts with photos that don’t have <!--more--> */}}
+        {{ $list = $photos | complement $articles }}
     {{end }}
     {{ if eq .Section "notes" }}
-        {{ $list = $list | intersect (where .Site.Pages "Params.photos" "==" nil) | intersect (where .Site.Pages ".Params.title" "in" (slice "" " " nil)) }}
+        {{/* Notes are everything else */}}
+        {{ $list = $list | complement $photos | complement $articles }}
     {{end }}
-
     {{ partial "post-type-listing" (dict "context" . "list" $list) }}
 {{ end }}
