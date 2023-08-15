@@ -1,0 +1,69 @@
+{{/* Slice of images */}}
+{{ $images := findRE `<img.+?>` . }}
+{{ $output := . }}
+{{ if eq (len $images) 1 }}
+    {{ . }}
+{{ end }}
+{{ if gt (len $images) 1 }}
+    {{ $output = slice `
+        <div class="relative overflow-hidden rounded">
+        <button
+            class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-400 z-1 absolute left-0 top-1/2 z-10 ml-4 -translate-y-1/2"
+            data-direction="previous"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="h-6 w-6">
+            <path
+                fill="currentColor"
+                fill-rule="evenodd"
+                d="M38.4256 48.4227H38.4256C37.6432 49.2043 36.3756 49.2043 35.5932 48.4227L20.5707 33.4183V33.4183C19.7895 32.6387 19.7882 31.3734 20.5678 30.5921C20.5687 30.5911 20.5697 30.5902 20.5707 30.5892L35.5932 15.5848V15.5848C36.3744 14.8026 37.6418 14.8019 38.4239 15.5831C39.206 16.3643 39.2068 17.6316 38.4256 18.4138V18.4138L24.8192 32.0038L38.4256 45.5938V45.5938C39.2068 46.3732 39.2082 47.6383 38.4288 48.4195C38.4277 48.4206 38.4267 48.4216 38.4256 48.4227V48.4227Z"
+            ></path>
+            </svg>
+        </button>
+        <button
+            class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-400 z-1 absolute right-0 top-1/2 z-10 mr-4 -translate-y-1/2"
+            data-direction="next"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="h-6 w-6">
+            <path
+                fill="currentColor"
+                fill-rule="evenodd"
+                d="M28.4276 48.4568C27.6464 49.239 26.3791 49.2398 25.5969 48.4585C24.8148 47.6773 24.814 46.41 25.5952 45.6278L39.2016 32.0378L25.5952 18.4478C24.814 17.6657 24.8148 16.3984 25.5969 15.6171C26.379 14.8359 27.6464 14.8367 28.4276 15.6188L43.45 30.6233C44.2312 31.403 44.2326 32.6683 43.4529 33.4495C43.452 33.4505 43.451 33.4515 43.45 33.4524L28.4276 48.4568Z"
+            ></path>
+            </svg>
+        </button>
+        <div
+            class="relative flex w-full snap-x snap-mandatory overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden"
+        >
+    `}}
+    {{ range $images }}
+        {{ $output = $output | append `
+        <div
+            data-item="true"
+            data-item-index="2"
+            class="w-full shrink-0 snap-center"
+        >`}}
+        {{ $output = $output | append . }}
+        {{ $output = $output | append `</div>` }}
+    {{ end }}
+    {{ $output = $output | append `
+        </div>
+        <div class="mt-4 flex flex-wrap justify-center gap-2">
+            <button
+            data-item-index="0"
+            class="400 h-4 w-4 rounded-full focus:outline-none focus-visible:ring-2 bg-purple-400 focus-visible:ring-purple-200"
+            ></button>
+            <button
+            data-item-index="1"
+            class="400 h-4 w-4 rounded-full focus:outline-none focus-visible:ring-2 bg-purple-200 focus-visible:ring-purple-400"
+            ></button>
+            <button
+            data-item-index="2"
+            class="400 h-4 w-4 rounded-full focus:outline-none focus-visible:ring-2 bg-purple-200 focus-visible:ring-purple-400"
+            ></button>
+        </div>
+        </div>
+        `
+    }}
+    {{ $output = delimit $output "" }}
+{{ end }}
+{{ return $output }}

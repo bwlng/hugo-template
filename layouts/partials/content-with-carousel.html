@@ -1,0 +1,8 @@
+{{ $content := . }}
+{{ $paragraphsWithOnlyImages := partial "get-paragraphs-with-only-images" $content }}
+{{ if len $paragraphsWithOnlyImages }}
+    {{ range $imagesParagraph := $paragraphsWithOnlyImages }}
+        {{ $content = replace $content $imagesParagraph (partial "carousel" $imagesParagraph) }}
+    {{ end }}
+{{ end }}
+{{ return ($content | safeHTML) }}

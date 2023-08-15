@@ -1,0 +1,4 @@
+{{/* Pattern to match paragraphs that only have images */}}
+{{ $regex := `<p>(<img[^>]*>)+</p>` }}
+{{ $imageOnlyParagraphs := findRE $regex . }}
+{{- return $imageOnlyParagraphs -}}
