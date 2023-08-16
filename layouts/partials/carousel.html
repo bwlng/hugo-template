@@ -6,7 +6,7 @@
 {{ end }}
 {{ if gt (len $images) 1 }}
     {{ $output = slice `
-        <div class="relative overflow-hidden rounded">
+        <div class="relative rounded" data-carousel>
         <button
             class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-400 z-1 absolute left-0 top-1/2 z-10 ml-4 -translate-y-1/2"
             data-direction="previous"
@@ -33,37 +33,36 @@
         </button>
         <div
             class="relative flex w-full snap-x snap-mandatory overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden"
+            data-scroll
         >
     `}}
-    {{ range $images }}
-        {{ $output = $output | append `
+    {{ range $key, $image := $images }}
+        {{ $output = $output | append (printf `
         <div
-            data-item="true"
-            data-item-index="2"
+            data-item
+            data-item-index="%d"
             class="w-full shrink-0 snap-center"
-        >`}}
-        {{ $output = $output | append . }}
+        >` $key) }}
+        {{ $output = $output | append $image }}
         {{ $output = $output | append `</div>` }}
     {{ end }}
     {{ $output = $output | append `
         </div>
         <div class="mt-4 flex flex-wrap justify-center gap-2">
+    `}}
+    {{ range $index, $image := $images }}
+        {{ $output = $output | append (printf `
             <button
-            data-item-index="0"
-            class="400 h-4 w-4 rounded-full focus:outline-none focus-visible:ring-2 bg-purple-400 focus-visible:ring-purple-200"
-            ></button>
-            <button
-            data-item-index="1"
-            class="400 h-4 w-4 rounded-full focus:outline-none focus-visible:ring-2 bg-purple-200 focus-visible:ring-purple-400"
-            ></button>
-            <button
-            data-item-index="2"
-            class="400 h-4 w-4 rounded-full focus:outline-none focus-visible:ring-2 bg-purple-200 focus-visible:ring-purple-400"
-            ></button>
+              data-pagination-dot
+              data-pagination-index="%d"
+              class="h-4 w-4 rounded-full focus:outline-none focus-visible:ring-2 bg-purple-200 focus-visible:ring-purple-400 aria-selected:bg-purple-400 aria-selected:focus-visible:ring-purple-200">
+            </button>
+        ` $index) }}
+    {{ end }}
+    {{ $output = $output | append `
         </div>
         </div>
-        `
-    }}
+    `}}
     {{ $output = delimit $output "" }}
 {{ end }}
 {{ return $output }}
