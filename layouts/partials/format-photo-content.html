@@ -1,0 +1,6 @@
+{{ $content := .content }}
+{{ $regex := `<p>(<img[^>]*>)+</p>|(<img[^>]*>)` }}
+{{ $photo := index (findRE $regex $content) 0 }}
+{{ $content = replace $content $photo "" | safeHTML }}
+{{ $content = (printf "%s%s" (partial "content-with-carousel" $photo) $content) | safeHTML }}
+{{ return $content }}

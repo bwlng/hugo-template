@@ -17,7 +17,7 @@
 				{{ if .Title -}}
 				"title": {{ .Title | jsonify }},
 				{{- end -}}
-				{{- $s := (partial "content-with-optimized-images" .Content) | jsonify -}}
+				{{- $s := (partial "content-with-optimized-images" (dict "content" .Content)) | jsonify -}}
 				{{- $s := replace $s "\\u003c" "<" -}}
 				{{- $s := replace $s "\\u003e" ">" -}}
 				{{- $s := replace $s "\\u0026" "&" }}

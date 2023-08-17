@@ -1,10 +1,9 @@
-{{ $context := .context }}
 {{ $item := .item }}
 {{ $postType := partial "get-post-type" $item }}
 {{ $content := partial "get-content-summary" $item }}
-{{ $content = partial "content-with-optimized-images" $content }}
+{{ $content = partial "content-with-optimized-images" (dict "content" $content "class" "w-full h-auto max-w-full rounded shadow") }}
 {{ if eq $postType "photo" }}
-  {{ $content = partial "content-with-carousel" $content }}
+    {{ $content = partial "format-photo-content" (dict "content" $content) }}
 {{ end }}
 
 <div class="h-entry">

@@ -32,7 +32,7 @@
             </svg>
         </button>
         <div
-            class="relative flex w-full snap-x snap-mandatory overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden"
+            class="relative flex w-full snap-x snap-mandatory overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden shadow rounded"
             data-scroll
         >
     `}}
@@ -43,7 +43,7 @@
             data-item-index="%d"
             class="w-full shrink-0 snap-center"
         >` $key) }}
-        {{ $output = $output | append $image }}
+        {{ $output = $output | append (replace $image " rounded shadow" "") }}
         {{ $output = $output | append `</div>` }}
     {{ end }}
     {{ $output = $output | append `

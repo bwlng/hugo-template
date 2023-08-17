@@ -1,4 +1,5 @@
-{{ $content := . }}
+{{ $content := .content }}
+{{ $class := default "" .class }}
 {{/* Finds each img tag, sets the `src`, `width`, `height`, `alt` to variables, then replaces the img tag in the content with an optimized tag */}}
 {{ range $match := findRE `<img.+?>` $content }}
   {{ $src := replaceRE `src=|"` "" (index (findRE `src=\"([^\"]+)\"` $match 1) 0)  }}
@@ -12,6 +13,6 @@
   {{ end }}
   {{ $src = index $srcset 2 }}
   {{ $srcset = delimit $srcset ", " }}
-  {{ $content = (replaceRE $match (printf `<img sizes="(min-width: 640) 640, 100vw" decoding="async" loading="lazy" src="%s" srcset="%s" width="%s" height="%s" alt="%s" class="w-full h-auto max-w-full rounded shadow mb-4 last:mb-0" />` $src $srcset $width $height $alt) $content) | safeHTML }}
+  {{ $content = (replaceRE $match (printf `<img sizes="(min-width: 640) 640, 100vw" decoding="async" loading="lazy" src="%s" srcset="%s" width="%s" height="%s" alt="%s" class="%s" />` $src $srcset $width $height $alt $class) $content) | safeHTML }}
 {{ end }}
 {{ return $content }}
