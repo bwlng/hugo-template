@@ -1,8 +1,30 @@
-{{ $list := .list }}
 {{ $context := .context }}
-{{ range $index, $list_item := $list }}
-    {{ if ne $index 0 }}
-        {{ partial "divider" }}
-    {{ end }}
-    {{ partial "post-summary" (dict "context" $context "item" $list_item) }}
+{{ $paginator := $context.Paginate .list }}
+{{ $next := "" }}
+{{ $prev := "" }}
+{{ if $paginator.HasNext }}
+    {{ $next = $context.Paginator.Next.URL }}
 {{ end }}
+{{ if $paginator.HasPrev }}
+    {{ $prev = $context.Paginator.Prev.URL }}
+{{ end }}
+{{ range $index, $list_item := $paginator.Pages }}
+    {{ partial "post-summary" (dict "context" $context "item" $list_item) }}
+    {{ partial "divider" }}
+{{ end }}
+<div class="flex justify-between">
+    {{ partial "button" (dict
+        "text" "Newer"
+        "icon_before" "chevron-left"
+        "variant" "muted"
+        "href" $prev
+        "class" "w-28 justify-center inline-flex"
+    ) }}
+    {{ partial "button" (dict
+        "text" "Older"
+        "icon_after" "chevron-right"
+        "variant" "muted"
+        "href" $next
+        "class" "w-28 justify-center inline-flex"
+    ) }}
+</div>

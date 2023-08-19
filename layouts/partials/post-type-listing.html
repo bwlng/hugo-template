@@ -31,6 +31,7 @@
                     {{ range $index, $link := $links }}
                         {{ partial "button" (dict
                             "text" $link.name
+                            "class" "min-w-[5.5em] justify-center"
                             "href" $link.href
                             "variant" "secondary"
                             "selected" (or 
