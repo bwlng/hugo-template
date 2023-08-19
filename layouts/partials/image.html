@@ -1,0 +1,24 @@
+{{ $class := default "" .class }}
+{{ $src := .src }}
+{{ $sizes := default "(min-width: 640) 640, 100vw" .sizes }}
+{{ $width := .width }}
+{{ $height := .height }}
+{{ $alt := .alt }}
+{{ $resolutions := slice 160 320 640 1280 }}
+{{ $srcset := slice }}
+{{ range $resolutions }}
+  {{ $srcset = $srcset | append ((printf `https://cdn.micro.blog/photos/%dx/%s %dw` . ($src | urlquery) .) | safeURL) }}
+{{ end }}
+{{ $src = index $srcset 2 }}
+{{ $srcset = delimit $srcset ", " }}
+<img
+    sizes="{{ $sizes }}"
+    decoding="async"
+    loading="lazy"
+    src="{{ $src }}"
+    srcset="{{ $srcset }}"
+    width="{{ $width }}"
+    height="{{ $height }}"
+    alt="{{ $alt }}"
+    class="{{ $class }}"
+/>
