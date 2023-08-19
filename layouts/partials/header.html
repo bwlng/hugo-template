@@ -2,10 +2,12 @@
     (dict
         "name" "Blog"
         "href" "/"
+        "isActive"  (or (.IsHome) (eq .Type "post") (in (slice "articles" "photos" "notes") .Section))
     )
     (dict
         "name" "About"
-        "href" "/about.html"
+        "href" "/about/"
+        "isActive" (eq .RelPermalink "/about/")
     )
     (dict
         "name" "Projects"
@@ -23,8 +25,7 @@
       <a
         href="/"
         class="inline-flex h-full items-center px-4 font-bold leading-none transition-colors duration-300 hover:text-purple-200"
-        >BWLNG</a
-      >
+        >BWLNG</a>
     </div>
     <nav class="mx-auto py-2 md:py-0">
       <div class="flex h-full items-center justify-center px-4 md:px-0">
@@ -52,13 +53,19 @@
           </button>
           <ul class="md:flex md:h-full md:flex-row md:text-white">
             {{ range $link := $links }}
-            <li class="w-full py-[2px] md:px-1 md:py-2">
-                <a
-                  href="{{ $link.href }}"
-                  class="inline-flex w-full items-center rounded-lg border px-3 py-4 text-sm font-bold leading-none transition-colors duration-300 md:w-auto md:rounded-lg md:p-2 md:text-sm md:font-semibold md:text-white bg-gray-100 text-black hover:bg-gray-200 focus:bg-gray-200 md:border-transparent md:bg-transparent md:bg-clip-padding md:hover:bg-purple-900 md:focus:bg-purple-900"
-                  >{{ $link.name }}</a
-                >
-              </li>
+                {{ $class := slice "inline-flex w-full items-center rounded-lg border px-3 py-4 text-sm font-bold leading-none transition-colors duration-300 md:w-auto md:rounded-lg md:p-2 md:text-sm md:font-semibold md:text-white" }}
+                {{- if $link.isActive -}}
+                    {{- $class = $class | append "bg-purple-500 text-white md:border-purple-200 md:bg-purple-900 md:bg-transparent md:text-purple-200" -}}
+                {{- else -}}
+                    {{- $class = $class | append "bg-gray-100 text-black hover:bg-gray-200 focus:bg-gray-200 md:border-transparent md:bg-transparent md:bg-clip-padding md:hover:bg-purple-900 md:focus:bg-purple-900" -}}
+                {{- end -}}
+                <li class="w-full py-[2px] md:px-1 md:py-2">
+                    <a
+                    href="{{ $link.href }}"
+                    class="{{- delimit $class " " }}"
+                    >{{ $link.name }}</a
+                    >
+                </li>
             {{ end }}
           </ul>
         </div>
