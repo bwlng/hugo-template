@@ -7,6 +7,12 @@ date: 2021-05-16T19:00:33-0500
 url: /about/
 layout: "about"
 headline: "I’m a web team leader and user experience designer based in Baton Rouge, Louisiana."
+photos:
+- https://cdn.uploads.micro.blog/50/2023/stephen-bowling.jpg
+photos_with_metadata:
+- height: 600
+  url: https://cdn.uploads.micro.blog/50/2023/stephen-bowling.jpg
+  width: 600
 ---
 I lead the web team for a global manufacturing company. I founded [Studiosaurus](https://studiosaurus.com/), a web design, development, and strategy consultancy in Baton Rouge, Louisiana where I worked with direct clients and advised leadership and led product development for agencies without dedicated digital teams.
 
