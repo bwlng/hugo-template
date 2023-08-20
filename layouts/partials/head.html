@@ -59,5 +59,11 @@
 <link href="{{ .Site.RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
 <link rel="alternate" type="application/json" title="{{ .Site.Title }}" href="{{ "feed.json" | absURL }}" />
 <link rel="EditURI" type="application/rsd+xml" href="{{ "rsd.xml" | absURL }}" />
-{{ $js := slice (resources.Get "js/main.js") (resources.Get "js/carousel.js") (resources.Get "js/masthead-menu.js") (resources.Get "js/video.js") | resources.Concat "js/bundle.js" | js.Build }}
+{{ $js := (slice
+    (resources.Get "js/main.js")
+    (resources.Get "js/carousel.js")
+    (resources.Get "js/form.js")
+    (resources.Get "js/masthead-menu.js")
+    (resources.Get "js/video.js")
+) | resources.Concat "js/bundle.js" | js.Build }}
 <script type="text/javascript" src="{{ $js.Permalink }}" defer></script>

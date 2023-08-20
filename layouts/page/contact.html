@@ -1,0 +1,53 @@
+{{ define "main" }}
+{{ $headline := .Params.headline }}
+{{ $content := .Content }}
+<div class="py-12 sm:py-20">
+    <div class="container mx-auto px-4">
+        <div class="prose text-center">
+            {{ with $headline }}
+                <h1>Get in touch</h1>
+            {{ end }}
+            <div class="mx-auto w-[24rem] max-w-full prose">
+                {{ $content }}
+            </div>
+        </div>
+        <div class="mx-auto mt-8 w-[24rem] max-w-full rounded-lg border p-4 py-6 shadow-md">
+            <form
+                class="space-y-4 text-left"
+                method="POST"
+                name="contact"
+                data-action-url="{{ .Site.Params.form_action_url }}"
+                data-form
+            >
+                <noscript>
+                    <p class="bg-red-100 text-red-500 border rounded-sm text-sm border-red-300 p-2">
+                        This form won’t work with Javascript disabled
+                    </p>
+                </noscript>
+                <input
+                    type="text"
+                    name="_lagniappe"
+                    class="absolute top-0 left-0 h-0 w-0 opacity-0"
+                    value=""
+                    autocomplete="off"
+                    tabindex="-1"
+                />
+                <div>
+                    {{ partial "form-control" (dict "label" "Name" "name" "name") }}
+                </div>
+                <div>
+                    {{ partial "form-control" (dict "label" "Email" "name" "email") }}
+                </div>
+                <div>
+                    {{ partial "form-control" (dict "label" "Message" "name" "message" "type" "textarea") }}
+                </div>
+                <div>
+                    <button class="inline-flex rounded-lg border px-3 py-2.5 leading-tight transition-colors duration-150 border-transparent bg-purple-500 text-white hover:bg-purple-600">
+                        Send
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{ end }}

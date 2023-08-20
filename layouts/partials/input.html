@@ -1,0 +1,19 @@
+{{ $type := .type | default "input" }}
+{{ $name := .name }}
+{{ $placeholder := .placeholder }}
+{{ $class := printf "flex-1 rounded-lg border p-2 px-3 text-base leading-snug focus:bg-purple-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 %s" .class }}
+{{ if eq $type "textarea" }}
+<textarea
+    name="{{ $name }}"
+    class="{{ $class }}"
+    placeholder="{{ $placeholder }}"
+>
+</textarea>
+{{ else }}
+<input
+    type="{{ $type }}"
+    name="{{ $name }}"
+    class="{{ $class }}"
+    placeholder="{{ $placeholder }}"
+/>
+{{ end }}

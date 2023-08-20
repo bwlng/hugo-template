@@ -131,12 +131,5 @@
 		"plugins_css": [],
 		"plugins_js": [],
 		"plugins_html": []
-	},
-	"fields": [
-		{
-		  "field": "params.form_action_url",
-		  "label": "Form Action URL",
-		  "placeholder": "Enter the URL to submit forms to"
-		}
-	  ]
+	}
 }

@@ -1,0 +1,11 @@
+
+{{ $label := .label }}
+{{ $name := .name }}
+{{ $type := .type }}
+{{ $value := .value }}
+{{ $error := .error }}
+<label class="flex flex-col gap-1 text-left text-gray-500 focus-within:text-purple-400">
+    {{ partial "eyebrow" (dict "text" $label) }}
+    {{ partial "input" (dict "name" $name "type" $type "value" $value "error" $error) }}
+</label>
+

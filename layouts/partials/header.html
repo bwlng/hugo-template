@@ -11,11 +11,13 @@
     )
     (dict
         "name" "Projects"
-        "href" "/projects.html"
+        "href" "/projects/"
+        "isActive" (eq .RelPermalink "/projects/")
     )
     (dict
         "name" "Contact"
-        "href" "/contact.html"
+        "href" "/contact/"
+        "isActive" (eq .RelPermalink "/contact/")
     )
 }}
 {{ $currentPage := dict "name" "Menu" }}
