@@ -2,6 +2,7 @@
 module.exports = {
   content: [
     "./layouts/**/*.{html,js}",
+    "./assets/**/*.{html,js}",
   ],
   theme: {
     extend: {
