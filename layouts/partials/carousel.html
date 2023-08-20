@@ -1,5 +1,5 @@
 {{/* Slice of images */}}
-{{ $images := findRE `<img.+?>` . }}
+{{ $images := findRE `<img.+?>|<video[^>]*>.*?<\/video>` . }}
 {{ $output := . }}
 {{ if eq (len $images) 1 }}
     {{ . }}

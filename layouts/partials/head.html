@@ -6,5 +6,5 @@
 <link rel="token_endpoint" href="https://micro.blog/indieauth/token">
 <link rel="micropub" href="https://micro.blog/micropub">
 
-{{ $js := slice (resources.Get "js/main.js") (resources.Get "js/carousel.js") (resources.Get "js/masthead-menu.js") | resources.Concat "js/bundle.js" | js.Build }}
+{{ $js := slice (resources.Get "js/main.js") (resources.Get "js/carousel.js") (resources.Get "js/masthead-menu.js") (resources.Get "js/video.js") | resources.Concat "js/bundle.js" | js.Build }}
 <script type="text/javascript" src="{{ $js.Permalink }}" defer></script>

@@ -1,18 +1,24 @@
 {{ $content := .content }}
 {{ $class := default "" .class }}
 {{/* Finds each img tag, sets the `src`, `width`, `height`, `alt` to variables, then replaces the img tag in the content with an optimized tag */}}
-{{ range $match := findRE `<img.+?>` $content }}
+{{ range $match := findRE `<img.+?>|<video[^>]*>.*?<\/video>` $content }}
   {{ $src := replaceRE `src=|"` "" (index (findRE `src=\"([^\"]+)\"` $match 1) 0)  }}
   {{ $width := replaceRE `width=|"` "" (index (findRE `width=\"([^\"]+)\"` $match 1) 0)  }}
   {{ $height := replaceRE `height=|"` "" (index (findRE `height=\"([^\"]+)\"` $match 1) 0)  }}
-  {{ $alt := replaceRE `alt=|"` "" (index (findRE `alt=\"([^\"]+)\"` $match 1) 0)  }}
-  {{ $sizes := slice 160 320 640 1280 }}
-  {{ $srcset := slice }}
-  {{ range $sizes }}
-    {{ $srcset = $srcset | append ((printf `https://cdn.micro.blog/photos/%dx/%s %dw` . ($src | urlquery) .) | safeURL) }}
+  {{ $isVideo := findRE `\.mp4$|\.mov$` $src }}
+  {{ if $isVideo }}
+    {{ $poster := replaceRE `poster=|"` "" (index (findRE `poster=\"([^\"]+)\"` $match 1) 0)  }}
+    {{ $content = (replaceRE $match (printf `<video data-video playsinline muted loop preload="metadata" width="%s" height="%s" class="%s" poster="%s"><source src="%s" /></video>` $width $height $class $poster $src) $content) | safeHTML }}
+  {{ else }}
+    {{ $alt := replaceRE `alt=|"` "" (index (findRE `alt=\"([^\"]+)\"` $match 1) 0)  }}
+    {{ $sizes := slice 160 320 640 1280 }}
+    {{ $srcset := slice }}
+    {{ range $sizes }}
+      {{ $srcset = $srcset | append ((printf `https://cdn.micro.blog/photos/%dx/%s %dw` . ($src | urlquery) .) | safeURL) }}
+    {{ end }}
+    {{ $src = index $srcset 2 }}
+    {{ $srcset = delimit $srcset ", " }}
+    {{ $content = (replaceRE $match (printf `<img sizes="(min-width: 640) 640, 100vw" decoding="async" loading="lazy" src="%s" srcset="%s" width="%s" height="%s" alt="%s" class="%s" />` $src $srcset $width $height $alt $class) $content) | safeHTML }}
   {{ end }}
-  {{ $src = index $srcset 2 }}
-  {{ $srcset = delimit $srcset ", " }}
-  {{ $content = (replaceRE $match (printf `<img sizes="(min-width: 640) 640, 100vw" decoding="async" loading="lazy" src="%s" srcset="%s" width="%s" height="%s" alt="%s" class="%s" />` $src $srcset $width $height $alt $class) $content) | safeHTML }}
 {{ end }}
 {{ return $content }}
