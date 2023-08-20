@@ -1,6 +1,8 @@
 {{ define "main" }}
     {{ $list := where .Site.Pages "Type" "post" }}
-    {{ $photos := $list | intersect (where .Site.Pages ".Params.photos" "!=" nil) }}
+    {{ $photos := where .Site.Pages ".Params.photos" "!=" nil | union (where .Site.Pages ".Params.videos" "!=" nil)  | union (where .Site.Pages ".Params.images" "!=" nil) }}
+    {{ $photos = $list | intersect $photos }}
+    {{ $photos = sort $photos "Date" "desc" }}
     {{ $articles := $list | intersect (where .Site.Pages ".RawContent" "like" "<!--more-->") }}
     {{ if eq .Section "articles" }}
         {{/* Articles are posts with <!--more--> */}}
