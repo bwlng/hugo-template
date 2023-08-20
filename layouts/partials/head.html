@@ -56,7 +56,7 @@
     <meta property="og:video" content="{{ $video }}">
 {{ end }}
 {{/* Feeds */}}
-<link href="{{ .Site.RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
+<link href="{{ "feed.xml" | absURL }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
 <link rel="alternate" type="application/json" title="{{ .Site.Title }}" href="{{ "feed.json" | absURL }}" />
 <link rel="EditURI" type="application/rsd+xml" href="{{ "rsd.xml" | absURL }}" />
 {{ $js := (slice
