@@ -4,30 +4,38 @@
 {{- $variant := default "primary" .variant -}}
 {{- $class := slice .class "inline-flex rounded-lg border px-3 py-2.5 leading-tight transition-colors duration-150" -}}
 {{- $selected := default false .selected -}}
+{{- $disabled := default false .disabled -}}
 {{- $rest := dict -}}
 {{- range $key, $value := . -}}
-    {{- if not (in (slice "text" "variant" "class" "selected" "icon_before" "icon_after") $key) -}}
+    {{- if not (in (slice "text" "variant" "class" "selected" "icon_before" "icon_after" "disabled") $key) -}}
         {{- $rest = $rest | merge (dict $key $value) -}}
     {{- end -}}
 {{- end -}}
-{{- if eq $variant "primary" -}}
-    {{- with $selected -}}
-        {{- $class = $class | append "text-white border-purple-200 bg-purple-900 text-purple-200" -}}
+    {{- if $disabled -}}
+        {{- $class = $class | append "pointer-events-none border-transparent bg-gray-100 text-gray-400" -}}
     {{- else -}}
-        {{- $class = $class | append "text-white border-transparent bg-purple-500 text-white hover:bg-purple-600" -}}
+    {{- if eq $variant "primary" -}}
+        {{- with $selected -}}
+            {{- $class = $class | append "text-white border-purple-200 bg-purple-900 text-purple-200" -}}
+        {{- else -}}
+            {{- $class = $class | append "text-white border-transparent bg-purple-500 text-white hover:bg-purple-600" -}}
+        {{- end -}}
     {{- end -}}
-{{- end -}}
-{{- if eq $variant "secondary" -}}
-    {{- with $selected -}}
-        {{- $class = $class | append "border-transparent bg-black text-white" -}}
-    {{- else -}}
-        {{- $class = $class | append "border border-gray-300 bg-white text-black hover:bg-gray-100" -}}
+    {{- if eq $variant "secondary" -}}
+        {{- with $selected -}}
+            {{- $class = $class | append "border-transparent bg-black text-white" -}}
+        {{- else -}}
+            {{- $class = $class | append "border border-gray-300 bg-white text-black hover:bg-gray-100" -}}
+        {{- end -}}
     {{- end -}}
-{{- end -}}
-{{- if eq $variant "muted" -}}
-    {{- $class = $class | append "border-transparent bg-gray-200 text-gray-500 hover:bg-gray-300" -}}
+    {{- if eq $variant "muted" -}}
+        {{- $class = $class | append "border-transparent bg-gray-200 text-gray-500 hover:bg-gray-300" -}}
+    {{- end -}}
 {{- end -}}
 <a class="{{- delimit $class " " -}}"
+    {{- if $disabled -}}
+        {{- (printf " %s=%q" "aria-disabled" "true") | safeHTMLAttr  -}}
+    {{- end -}}
     {{- range $key, $value := $rest -}}
         {{- (printf " %s=%q" $key $value) | safeHTMLAttr  -}}
     {{- end -}}
