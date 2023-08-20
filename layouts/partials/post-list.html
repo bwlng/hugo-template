@@ -18,6 +18,7 @@
         "icon_before" "chevron-left"
         "variant" "muted"
         "href" $prev
+        "disabled" (not $paginator.HasPrev)
         "class" "w-28 justify-center inline-flex"
     ) }}
     {{ partial "button" (dict
@@ -25,6 +26,7 @@
         "icon_after" "chevron-right"
         "variant" "muted"
         "href" $next
+        "disabled" (not $paginator.HasNext)
         "class" "w-28 justify-center inline-flex"
     ) }}
 </div>
