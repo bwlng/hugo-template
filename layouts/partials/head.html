@@ -1,10 +1,63 @@
+{{- $site_title := .Site.Title -}}
+{{- $site_description := .Site.Params.description -}}
+{{- $author := .Site.Author.name -}}
+{{- $page_title := .Title -}}
+{{- $page_description := (partial "get-content-summary" .) | plainify }}
+{{- $meta_title := .Site.Title -}}
+{{- $meta_description := $site_description -}}
+{{- if $page_description -}}
+    {{- $meta_description = $page_description -}}
+{{- end -}}
+{{- $og_title := cond (eq .Site.Title .Title) "" .Title -}}
+{{- $og_description := $meta_description -}}
+{{- if (and $page_title (ne $page_title $meta_title)) -}}
+    {{ $meta_title = printf "%s | %s" $page_title $meta_title }}
+{{- end -}}
+{{- if eq .Params.type "post" -}}
+    {{- if not $og_title -}}
+        {{- $og_title = $author -}}
+        {{- $meta_title = printf "%s | %s | %s" $author (truncate 100 "..." $meta_description) $site_title  -}}
+        {{- $meta_description = truncate 150 "..." $meta_description -}}
+    {{- end -}}
+{{- end -}}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://cloud.typography.com/655458/7656792/css/fonts.css">
 <link href="{{ "css/styles.css" | relURL }}?{{ now.Unix }}" rel="stylesheet">
+{{/* IndieWeb */}}
 <link rel="authorization_endpoint" href="https://micro.blog/indieauth/auth">
 <link rel="token_endpoint" href="https://micro.blog/indieauth/token">
 <link rel="micropub" href="https://micro.blog/micropub">
-
+{{/* Me */}}
+<link rel="me" href="https://micro.blog/bowling" title="Micro.blog" />
+<link rel="me" href="https://github.com/bwlng" title="GitHub" />
+<link rel="me" href="https://mastodon.social/@bowling" title="Mastodon" />
+<link rel="me" href="https://www.threads.net/@bwlng" title="Threads" />
+{{/* Social */}}
+<title>{{ $meta_title }}</title>
+<meta name="description" content="{{ $meta_description }}" />
+<meta property="og:title" content="{{ $og_title }}" />
+<meta property="og:description" content="{{ $og_description }}" />
+{{ range $image := .Params.photos_with_metadata }}
+    {{ with $image.url }}
+        <meta property="og:image" content="{{ $image.url }}" />
+    {{ end }}
+    {{ with $image.width }}
+        <meta property="og:image:width" content="{{ $image.width }}" />
+    {{ end }}
+    {{ with $image.height }}
+        <meta property="og:image:height" content="{{ $image.height }}" />
+    {{ end }}
+    {{ with $image.alt }}
+        <meta property="og:image:alt" content="{{ $image.alt }}" />
+    {{ end }}
+{{ end }}
+{{ range $video = .Params.videos }}
+    <meta property="og:video" content="{{ video }}">
+{{ end }}
+{{/* Feeds */}}
+<link href="{{ .Site.RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
+<link rel="alternate" type="application/json" title="{{ .Site.Title }}" href="{{ "feed.json" | absURL }}" />
+<link rel="EditURI" type="application/rsd+xml" href="{{ "rsd.xml" | absURL }}" />
 {{ $js := slice (resources.Get "js/main.js") (resources.Get "js/carousel.js") (resources.Get "js/masthead-menu.js") (resources.Get "js/video.js") | resources.Concat "js/bundle.js" | js.Build }}
 <script type="text/javascript" src="{{ $js.Permalink }}" defer></script>
