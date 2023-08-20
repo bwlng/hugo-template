@@ -10,12 +10,12 @@
     <div>© {{ now.Format "2006" }} Stephen Bowling</div>
     <div>
       <a
-        href="/feed.xml"
+        href="{{ "feed.xml" | absURL }}"
         class="text-purple-400 hover:text-purple-500 transition-colors duration-150 hover:underline"
         >RSS</a
       >,
       <a
-        href="/feed.json"
+        href="{{ "feed.json" | absURL }}"
         class="text-purple-400 hover:text-purple-500 transition-colors duration-150 hover:underline"
         >JSON</a
       >
