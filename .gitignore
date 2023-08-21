@@ -2,8 +2,10 @@
 content/*
 !content/.gitkeep
 !content/about.md
+!content/contact.md
 !content/articles
 !content/photos
 !content/notes
+!content/projects
 node_modules
 resources

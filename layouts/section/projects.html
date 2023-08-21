@@ -1,0 +1,14 @@
+{{ define "main" }}
+{{ $projects := .Pages.ByParam "order" }}
+<div class="py-12 sm:py-20">
+    <div class="container mx-auto px-4">
+        <div class="-mt-4 -ml-4 flex flex-wrap">
+            {{ range $projects }}
+                <div class="mt-4 w-full pl-4 md:w-1/2">
+                    {{ partial "project-card" . }}
+                </div>
+            {{ end}}
+        </div>
+    </div>
+  </div>
+{{ end }}
