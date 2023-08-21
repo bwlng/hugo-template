@@ -1,5 +1,6 @@
 {{- $site_title := .Site.Title -}}
 {{- $site_description := "" -}}
+{{- $is404 := eq .RelPermalink "/404.html" -}}
 {{ with .Site.GetPage "/about" -}}
     {{- $site_description = (partial "get-content-summary" .) | plainify -}}
 {{- end -}}
@@ -81,4 +82,14 @@
 
   gtag('config', '{{ . }}');
 </script>
+    {{ if $is404 }}
+    <script>
+        if (window.gtag) {
+            window.gtag('event', '404', {
+                page_location: window.location.href,
+                page_path: window.location.pathname,
+            });
+        }
+    </script>
+    {{ end }}
 {{ end }}
