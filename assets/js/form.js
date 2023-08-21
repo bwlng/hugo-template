@@ -1,11 +1,6 @@
 const form = document.querySelector('[data-form]');
 
-if (!form) {
-    return;
-}
-
 const onSuccess = (response) => {
-    console.log({ response })
     const node = document.createElement('div');
     node.classList.add('text-green-500');
     node.innerHTML = `Thank you for your message.`;
@@ -39,4 +34,4 @@ const handleSubmit = event => {
     })
 }
 
-form.addEventListener("submit", handleSubmit)
+form?.addEventListener("submit", handleSubmit)

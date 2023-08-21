@@ -1,6 +1,6 @@
 const videos = document.querySelectorAll("[data-video]");
 
-videos.forEach((video) => {
+videos?.forEach((video) => {
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
