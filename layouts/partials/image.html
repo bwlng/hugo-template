@@ -9,7 +9,7 @@
 {{ range $resolutions }}
   {{ $srcset = $srcset | append ((printf `https://cdn.micro.blog/photos/%dx/%s %dw` . ($src | urlquery) .) | safeURL) }}
 {{ end }}
-{{ $src = index $srcset 2 }}
+{{ $src = (printf `https://cdn.micro.blog/photos/%dx/%s` 1280 ($src | urlquery)) }}
 {{ $srcset = delimit $srcset ", " }}
 <img
     sizes="{{ $sizes }}"
