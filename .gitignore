@@ -1,6 +1,7 @@
 .DS_Store
 content/*
 !content/.gitkeep
+!content/404.md
 !content/about.md
 !content/contact.md
 !content/articles
