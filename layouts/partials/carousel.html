@@ -6,7 +6,8 @@
 {{ end }}
 {{ if gt (len $images) 1 }}
     {{ $output = slice `
-        <div class="relative rounded" data-carousel>
+        <div data-carousel>
+        <div class="relative rounded">
         <button
             class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-400 z-1 absolute left-0 top-1/2 z-10 ml-4 -translate-y-1/2"
             data-direction="previous"
@@ -61,6 +62,7 @@
         ` $index) }}
     {{ end }}
     {{ $output = $output | append `
+        </div>
         </div>
     `}}
     {{ $output = delimit $output "" }}

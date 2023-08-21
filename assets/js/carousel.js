@@ -18,7 +18,7 @@ carousels.forEach((carousel) => {
             dot.setAttribute("aria-selected", false);
         });
 
-        paginationDots[index].setAttribute("aria-selected", true);
+        paginationDots[index]?.setAttribute("aria-selected", true);
     };
 
     setActiveIndex(0)
