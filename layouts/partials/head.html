@@ -72,3 +72,13 @@
     (resources.Get "js/video.js")
 ) | resources.Concat "js/bundle.js" | js.Build }}
 <script type="text/javascript" src="{{ $js.Permalink }}?{{ .Site.Params.theme_seconds }}" defer></script>
+{{ with .Site.Params.google_analytics_id }}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '{{ . }}');
+</script>
+{{ end }}
