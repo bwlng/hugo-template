@@ -23,7 +23,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://cloud.typography.com/655458/7656792/css/fonts.css">
-<link href="{{ "css/styles.css" | relURL }}?{{ now.Unix }}" rel="stylesheet">
+<link href="{{ "css/styles.css" | relURL }}?{{ .Site.Params.theme_seconds }}" rel="stylesheet">
 {{/* IndieWeb */}}
 <link rel="authorization_endpoint" href="https://micro.blog/indieauth/auth">
 <link rel="token_endpoint" href="https://micro.blog/indieauth/token">
@@ -66,4 +66,4 @@
     (resources.Get "js/masthead-menu.js")
     (resources.Get "js/video.js")
 ) | resources.Concat "js/bundle.js" | js.Build }}
-<script type="text/javascript" src="{{ $js.Permalink }}" defer></script>
+<script type="text/javascript" src="{{ $js.Permalink }}?{{ .Site.Params.theme_seconds }}" defer></script>
