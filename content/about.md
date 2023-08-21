@@ -14,6 +14,10 @@ photos_with_metadata:
   url: https://cdn.uploads.micro.blog/50/2023/stephen-bowling.jpg
   width: 600
 ---
+Stephen Bowling - Web team lead. User experience designer.
+
+<!--more-->
+
 I lead the web team for a global manufacturing company. I founded [Studiosaurus](https://studiosaurus.com/), a web design, development, and strategy consultancy in Baton Rouge, Louisiana where I worked with direct clients and advised leadership and led product development for agencies without dedicated digital teams.
 
 Previously, I worked as VP Interactive at Rockit Science Agency, a boutique ad agency, where I set the digital vision and led the web team and projects for clients including NEEA, LUBA Workers’ Comp, and LSU.

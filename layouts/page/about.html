@@ -17,7 +17,7 @@
                             "class" "rounded-lg"
                         )}}
                     </div>
-                    {{ .Content }}
+                    {{ partial "get-content-without-summary" . }}
                 </div>
             </div>
             <div class="hidden w-44 flex-shrink-0 sm:block">
