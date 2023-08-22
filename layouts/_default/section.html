@@ -16,5 +16,8 @@
         {{/* Notes are everything else */}}
         {{ $list = $list | complement $photos | complement $articles }}
     {{end }}
+    {{ if eq .Section "replies" }}
+        {{ $list = where .Data.Pages.ByDate.Reverse "Type" "reply" }}
+    {{end }}
     {{ partial "post-type-listing" (dict "context" . "list" $list) }}
 {{ end }}

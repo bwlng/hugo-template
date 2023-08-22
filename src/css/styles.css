@@ -210,7 +210,7 @@
       vertical-align: top;
     }
   }
-  a:not([class]) {
+  a:not([class]), a.mention {
     color: theme('colors.purple.400');
     text-decoration: underline;
     transition-property: theme('transitionProperty.colors');
