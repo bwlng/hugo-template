@@ -1,31 +1,34 @@
 {{ define "main" }}
 {{ $content := partial "get-content-without-summary" . }}
 {{ $content = partial "content-with-optimized-images" (dict "content" $content "class" "w-full h-auto max-w-full rounded shadow") }}
-{{ $postType := partial "get-post-type" . }}
+{{ $postType := partial "get-type" . }}
 {{ if eq $postType "photo" }}
     {{ $content = partial "format-photo-content" (dict "content" $content) }}
 {{ end }}
-
-<article class="h-entry post py-12 sm:py-20 ">
+<article class="h-entry post py-12 sm:py-20">
   <div class="container mx-auto max-w-screen-sm px-4">
+    {{ if eq .Type "reply" }}
+        {{ partial "reply-badge" . }}
+    {{ end }}
     {{ with .Title }}
       <h1 class="p-name text-3xl font-bold lg:text-4xl">{{ . }}</h1>
     {{ end }}
     <section class="e-content prose {{- with .Title }} mt-4{{- end -}}">
       {{ $content }}
     </section>
+    {{ if in (slice "reply" "post") .Type }}
     <div class="mt-4">
       {{ partial "meta-list" (dict "date" .Date) }}
     </div>
     {{ partial "divider" (dict "class" "my-12") }}
     {{ partial "button" (dict
-      "text" "All Posts"
+      "text" (cond (eq .Type "post") "All Posts" "All Replies")
       "icon_before" "chevron-left"
       "variant" "muted"
-      "href" "/"
+      "href" (cond (eq .Type "post") "/" "/replies")
     ) }}
-
-    {{ if .Site.Params.include_conversation }}
+    {{ end }}
+    {{ if and (.Site.Params.include_conversation) (eq .Type "post") }}
     <script type="text/javascript" src="https://micro.blog/conversation.js?url={{ .Permalink }}"></script>
     {{ end }}
   </div>
