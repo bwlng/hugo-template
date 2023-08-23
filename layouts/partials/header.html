@@ -2,7 +2,7 @@
     (dict
         "name" "Blog"
         "href" "/"
-        "isActive"  (or (.IsHome) (eq .Type "post") (in (slice "articles" "photos" "notes") .Section))
+        "isActive"  (or (.IsHome) (eq .Type "post") (in (slice "articles" "photos" "notes" "replies") .Section))
     )
     (dict
         "name" "About"
