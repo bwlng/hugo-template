@@ -1,0 +1,10 @@
+{{ $item := . }}
+{{ $type := .Type }}
+{{ if (eq $type "post") }}
+    {{ if in $item.RawContent "<!--more-->" }}
+        {{ $type = "article" }}
+    {{ else if (or $item.Params.photos $item.Params.videos $item.Params.images) }}
+        {{ $type = "photo" }}
+    {{ end }}
+{{ end }}
+{{ return $type }}
