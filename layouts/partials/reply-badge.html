@@ -1,0 +1,13 @@
+{{- $item := . -}}
+{{- $reply_to := "" -}}
+{{- if eq $item.Params.reply_to_hostname "micro.blog" -}}
+    {{ $reply_to = printf "%s@%s" $item.Params.reply_to_username $item.Params.reply_to_hostname -}}
+{{- else if $item.Params.reply_to_username -}}
+    {{ $reply_to = $item.Params.reply_to_username -}}
+{{- else -}}
+    {{ $reply_to = $item.Params.reply_to_hostname -}}
+{{- end -}}
+<a href="{{ $item.Params.reply_to_url }}" class="u-in-reply-to inline-flex gap-1 mb-4 text-xs text-gray-500 bg-gray-100 hover:bg-gray-200 rounded border border-gray-300 p-1 pr-2 items-center transition-colors duration-150">
+    {{- partial "icon" (dict "icon" "reply" "class" "w-4") -}}
+    {{ cond (ne $reply_to nil) "Replying to " "Replying "  -}} {{- $reply_to -}}
+</a>

@@ -1,22 +1,15 @@
 {{ $item := .item }}
-{{ $postType := partial "get-post-type" $item }}
+{{ $postType := partial "get-type" $item }}
 {{ $content := partial "get-content-summary" $item }}
 {{ $content = partial "content-with-optimized-images" (dict "content" $content "class" "w-full h-auto max-w-full rounded shadow") }}
+{{ $replyTo := "" }}
 {{ if eq $postType "photo" }}
     {{ $content = partial "format-photo-content" (dict "content" $content) }}
 {{ end }}
 
 <div class="h-entry">
     {{ if eq $item.Type "reply" }}
-        <a href="{{ .Params.reply_to_url }}" class="u-in-reply-to inline-flex gap-1 mb-4 text-xs text-gray-500 bg-gray-100 hover:bg-gray-200 rounded border border-gray-300 p-1 pr-2 items-center transition-colors duration-150">
-            {{ partial "icon" (dict "icon" "reply" "class" "w-4") }}
-            Replying to
-            {{ if eq $item.Params.reply_to_hostname "micro.blog" -}}
-                @{{ $item.Params.reply_to_username }}
-            {{- else -}}
-                {{ $item.Params.reply_to_hostname }}
-            {{- end -}}
-        </a>
+        {{ partial "reply-badge" $item }}
     {{ end }}
     {{ if $item.Title }}
     <h2 class="font-extrabold text-2xl">
