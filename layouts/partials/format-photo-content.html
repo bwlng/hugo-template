@@ -1,6 +1,39 @@
+{{/* Define the content variable */}}
 {{ $content := .content }}
+
+{{/* Define the regex to find images and videos */}}
 {{ $regex := `<p>(<img[^>]*>|<video[^>]*>.*?<\/video>)+</p>|(<img[^>]*>)|<video[^>]*>.*?<\/video>` }}
-{{ $photo := index (findRE $regex $content) 0 }}
-{{ $content = replace $content $photo "" | safeHTML }}
-{{ $content = (printf "%s%s" (partial "content-with-carousel" $photo) $content) | safeHTML }}
-{{ return $content }}
+
+{{/* Find all images and videos in the content */}}
+{{ $photos := findRE $regex $content }}
+
+{{/* If there is only one image or video */}}
+{{ if eq (len $photos) 1 }}
+    {{/* Get the first (and only) image or video */}}
+    {{ $photo := index $photos 0 }}
+
+    {{/* Remove the image or video from the content */}}
+    {{ $content = replace $content $photo "" }}
+
+    {{/* Add the image or video at the top of the content */}}
+    {{ $content = printf "%s%s" (partial "content-with-carousel" $photo) $content }}
+{{ else }}
+    {{/* If there are multiple images or videos */}}
+    {{ range $index, $photo := $photos }}
+        {{/* Create a placeholder for each image or video */}}
+        {{ $placeholder := printf "<!-- placeholder%d -->" $index }}
+
+        {{/* Replace the image or video with the placeholder in the content */}}
+        {{ $content = replace $content $photo $placeholder }}
+    {{ end }}
+    {{ range $index, $photo := $photos }}
+        {{/* Get the placeholder for the current image or video */}}
+        {{ $placeholder := printf "<!-- placeholder%d -->" $index }}
+
+        {{/* Replace the placeholder with the image or video in the content */}}
+        {{ $content = replace $content $placeholder (partial "content-with-carousel" $photo) }}
+    {{ end }}
+{{ end }}
+
+{{/* Return the modified content */}}
+{{ return ($content | safeHTML) }}
