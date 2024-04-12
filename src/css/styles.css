@@ -130,7 +130,8 @@
     margin-top: 10px;
     font-size: 0.875rem;
   }
-  > pre {
+  > pre,
+  > .highlight > pre {
     font-size: theme('fontSize.sm');
     font-family: theme('fontFamily.mono');
     line-height: theme('lineHeight.normal');
