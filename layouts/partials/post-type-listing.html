@@ -22,8 +22,13 @@
         "href" "/replies"
     )
 }}
-<div class="py-12 sm:py-20">
+<div class="py-12">
     <div class="container mx-auto px-4 max-w-screen-sm">
+        <p class="mb-6">
+            <a href="/places/" class="inline-block text-xs/tight font-semibold uppercase transition-color bg-purple-150 hover:bg-purple-175 items-center rounded-xl border border-purple-200 pl-3 pr-2 py-2 text-purple-400 transition duration-150 hover:text-purple-500">
+                {{ partial "eyebrow" (dict "text" "Currently building Places.") }} <span class="underline hover:no-underline underline-offset-2">View topic</span> {{- partial "icon" (dict "icon" "arrow-right" "class" "inline-flex w-[1em] h-[1em] self-center") -}}</a>
+            </a>
+        </p>
         <div class="mb-12">
             <div class="relative overflow-hidden">
                 <div
