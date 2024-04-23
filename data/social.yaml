@@ -1,0 +1,12 @@
+- name: Fediverse
+  icon: fediverse
+  link: https://micro.blog/bwlng?remote_follow=1
+- name: Threads
+  icon: threads
+  link: https://www.threads.net/@bwlng
+- name: Bluesky
+  icon: bluesky
+  link: https://bsky.app/profile/bwlng.com
+- name: RSS
+  icon: rss
+  link: https://bwlng.com/feed.xml
