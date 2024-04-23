@@ -7,7 +7,7 @@
     {{ $content = partial "format-photo-content" (dict "content" $content) }}
 {{ end }}
 
-<div class="h-entry">
+<div class="h-entry" id="p-{{ $item.Params.post_id }}">
     {{ if eq $item.Type "reply" }}
         {{ partial "reply-badge" $item }}
     {{ end }}
