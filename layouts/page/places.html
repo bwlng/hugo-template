@@ -30,7 +30,7 @@
       </div>
     </div>
   </div>
-  <div class="mt-12">
+  <div class="mt-12 space-y-12">
     {{ range $index, $list_item := $list }}
         {{ partial "post-summary" (dict "context" $context "item" $list_item) }}
         {{ partial "divider" }}
