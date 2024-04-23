@@ -1,0 +1,40 @@
+{{ define "main" }}
+{{ $list := where .Site.Pages "Params.categories" "intersect" (slice "Places") }}
+{{ $latestPost := index $list 0 }}
+{{ $context := . }}
+<div class="container mx-auto px-4 max-w-screen-sm space-y-12">
+  <div class="sm:flex sm:flex-row">
+    <div class="sm:pr-12">
+      <h1 class="text-2xl/none font-extrabold mt-12 sm:text-3xl/none">
+        On building <a href="https://tryplaces.com" class="inline-flex text-purple-400 bg-transparent transition-colors duration-150 underline hover:bg-purple-175 hover:text-purple-500 underline-offset-2 p-1 -m-1 rounded-lg">Places</a>
+      </h1>
+      <h2 class="mt-1 text-base sm:text-lg text-gray-500">A web app to keep track of places I’ve been and places I want to go</h2>
+      <p class="text-sm mt-4 text-gray-500">
+        {{ partial "eyebrow" (dict "text" "Latest Update") }} <a href="#p-{{ $latestPost.Params.post_id }}" class="text-xs/tight font-semibold uppercase transition-color bg-purple-150 hover:bg-purple-175 inline-flex items-center rounded-xl border border-purple-200 pl-1.5 pr-1 py-0.5 text-purple-400 transition duration-150 hover:text-purple-500">{{ $latestPost.Date.Format "1/2/2006 at 3:04pm" }} {{- partial "icon" (dict "icon" "arrow-right" "class" "inline-flex w-[1em] h-[1em] self-center") -}}</a>
+      </p>
+      <div class="prose mt-4">
+        {{ partial "get-content-without-summary" . }}
+      </div>
+      <div class="mt-4">
+        {{ partial "eyebrow" (dict "text" "Subscribe or follow updates" ) }}
+        <ul class="flex mt-1 gap-2">
+          {{ range .Site.Data.social }}
+          <li>
+            <a href="{{ .link }}" class="flex text-gray-400 transition-colors duration-300 hover:text-purple-400 border w-full p-2 rounded hover:bg-purple-100 hover:border-purple-200 items-center">
+              {{- partial "icon" (dict "icon" .icon "class" "inline-flex w-[1em] h-[1em] mr-0.5 self-center") -}}
+              {{ .name }}
+            </a>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="mt-12">
+    {{ range $index, $list_item := $list }}
+        {{ partial "post-summary" (dict "context" $context "item" $list_item) }}
+        {{ partial "divider" }}
+    {{ end }}
+  </div>
+</div>
+{{ end }}
