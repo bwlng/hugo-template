@@ -17,7 +17,7 @@
       </div>
       <div class="mt-4">
         {{ partial "eyebrow" (dict "text" "Subscribe or follow updates" ) }}
-        <ul class="flex mt-1 gap-2">
+        <ul class="flex flex-wrap text-sm sm:text-base mt-1 gap-2">
           {{ range .Site.Data.social }}
           <li>
             <a href="{{ .link }}" class="flex text-gray-400 transition-colors duration-300 hover:text-purple-400 border w-full p-2 rounded hover:bg-purple-100 hover:border-purple-200 items-center">
