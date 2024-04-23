@@ -1,4 +1,8 @@
 {{- $site_title := .Site.Title -}}
+{{- $versioning_string := .Site.Params.versioning_string -}}
+{{ if eq hugo.Environment "development" }}
+  {{- $versioning_string = now.Format "20060102150405" }}
+{{ end }}
 {{- $site_description := "" -}}
 {{- $is404 := eq .RelPermalink "/404.html" -}}
 {{ with .Site.GetPage "/about" -}}
@@ -29,7 +33,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://cloud.typography.com/655458/7656792/css/fonts.css">
-<link href="{{ "css/styles.css" | relURL }}?{{ .Site.Params.theme_seconds }}" rel="stylesheet">
+<link href="{{ "css/styles.css" | relURL }}?{{ $versioning_string }}" rel="stylesheet">
 {{/* IndieWeb */}}
 <link rel="authorization_endpoint" href="https://micro.blog/indieauth/auth">
 <link rel="token_endpoint" href="https://micro.blog/indieauth/token">
