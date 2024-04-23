@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./layouts/**/*.{html,js}",
     "./assets/**/*.{html,js}",
+    "./content/**/*.{html,md}",
   ],
   theme: {
     extend: {
@@ -12,6 +13,8 @@ module.exports = {
       colors: {
         purple: {
           100: "#f5f1fd",
+          150: "#f5eff8",
+          175: "#ebdff0",
           200: "#ccafd9",
           300: "#b58bc9",
           400: "#746296",
