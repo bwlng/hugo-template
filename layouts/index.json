@@ -8,6 +8,7 @@
 		{{- $list := first 25 (where .Site.Pages "Type" "post") -}}
 		{{- $len := (len $list) -}}
 		{{ range $index, $value := $list }}
+			{{ $content := partial "get-content-without-summary" . }}
 			{
 				{{ if .Params.guid -}}
 				"id": "{{ .Params.guid }}",
@@ -17,7 +18,7 @@
 				{{ if .Title -}}
 				"title": {{ .Title | jsonify }},
 				{{- end -}}
-				{{- $s := (partial "content-with-optimized-images" (dict "content" .Content)) | jsonify -}}
+				{{- $s := (partial "content-with-optimized-images" (dict "content" $content)) | jsonify -}}
 				{{- $s := replace $s "\\u003c" "<" -}}
 				{{- $s := replace $s "\\u003e" ">" -}}
 				{{- $s := replace $s "\\u0026" "&" }}
