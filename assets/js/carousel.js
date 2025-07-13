@@ -19,6 +19,12 @@ carousels.forEach((carousel) => {
         });
 
         paginationDots[index]?.setAttribute("aria-selected", true);
+        const activeItem = scrollItems[index];
+        if (activeItem) {
+            const media = activeItem.querySelector("img, video");
+            const mediaHeight = media.offsetHeight
+            scrollContainer.style.height = media && mediaHeight > 0 ? `${media.offsetHeight}px` : ``;
+        }
     };
 
     setActiveIndex(0)
